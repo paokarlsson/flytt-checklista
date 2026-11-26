@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checklista för flyttstädning</title>
+<style>
+@font-face{font-family:Outfit;font-style:normal;font-weight:400;font-display:swap;src:url("assets/fonts/outfit-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:Outfit;font-style:normal;font-weight:700;font-display:swap;src:url("assets/fonts/outfit-latin-700-normal.woff2") format("woff2")}
+@font-face{font-family:Outfit;font-style:normal;font-weight:800;font-display:swap;src:url("assets/fonts/outfit-latin-800-normal.woff2") format("woff2")}
+
+:root{
+  --bg:#eef4f0; --bg-alt:#ffffff; --card:#ffffff; --card-alt:#eef4f0;
+  --ink:#16302a; --muted:#5d716a; --accent:#2f8f6b; --line:#d6e3dc;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg);font-size:17px;line-height:1.5}
+section{padding:56px 20px 64px}
+section.alt{background:var(--bg-alt)}
+.wrap{max-width:760px;margin:0 auto}
+h1,h2{font-weight:800;line-height:1.05;letter-spacing:-.01em;margin:0 0 24px;text-transform:uppercase}
+h1{font-size:clamp(30px,5vw,44px)}
+h2{font-size:clamp(26px,4.4vw,38px)}
+.sub{margin:-12px 0 28px;font-weight:700;color:var(--accent)}
+h3{font-size:15px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin:0 0 12px}
+.card{background:var(--card);border-radius:12px;padding:28px 30px;margin:0 0 22px}
+.alt .card{background:var(--card-alt)}
+.card h3:not(:first-child){margin-top:34px}
+
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:24px}
+.top h1{margin:0}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:var(--accent);color:#fff;font:700 15px/1 Outfit,system-ui,sans-serif;text-decoration:none;transition:filter .15s}
+.btn:hover{filter:brightness(1.08)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.btn svg{width:16px;height:16px}
+
+ul.list{list-style:none;margin:0;padding:0}
+.item{display:flex;gap:12px;align-items:flex-start;padding:4px 0;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;border-radius:6px}
+.item:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.check{flex:none;width:18px;height:18px;margin-top:3px;border:2px solid var(--accent);border-radius:50%;position:relative;transition:background .2s,transform .15s}
+.item:hover .check{transform:scale(1.12)}
+.item[aria-checked="true"] .check{background:var(--accent)}
+.item[aria-checked="true"] .check::after{content:"";position:absolute;left:4.5px;top:1.5px;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.item[aria-checked="true"] .text{text-decoration:line-through;color:var(--muted)}
+.divider{list-style:none;border-top:1px dashed var(--line);margin:10px 0}
+
+.tip{margin-top:24px;padding:12px 16px;border-left:4px solid var(--accent);background:rgba(255,255,255,.6);border-radius:0 8px 8px 0;font-size:14px}
+.tip strong{display:block;margin-bottom:2px}
+
+@media (max-width:560px){section{padding:40px 14px 48px}.card{padding:22px 18px}}
+
+/* Utskrift / PDF: ren A4-layout med tomma rutor att bocka i med penna */
+@page{size:A4;margin:14mm 16mm 16mm}
+@media print{
+  body{background:#fff;font-size:10.5pt;line-height:1.35;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section,section.alt{padding:0;background:none}
+  section.alt{break-before:page}
+  .wrap{max-width:none}
+  .btn,.divider{display:none!important}
+  .top{margin-bottom:5mm;padding-bottom:3mm;border-bottom:1.5pt solid var(--accent)}
+  h1{font-size:22pt}
+  h2{font-size:18pt;margin-bottom:2mm}
+  .sub{margin:0 0 5mm;font-size:10.5pt}
+  .card,.alt .card{background:none;border-radius:0;padding:0;margin:0 0 5mm}
+  h3{font-size:9.5pt;margin:0 0 1.5mm;padding-bottom:1mm;border-bottom:.5pt solid var(--line);break-after:avoid}
+  .card h3:not(:first-child){margin-top:5mm}
+  ul.list{break-inside:avoid}
+  .item{padding:.6mm 0;gap:3mm;break-inside:avoid}
+  .check{width:3.6mm;height:3.6mm;margin-top:.5mm;border-width:.8pt;background:none!important}
+  .check::after{display:none}
+  .item .text{text-decoration:none!important;color:var(--ink)!important}
+  .tip{margin-top:2.5mm;padding:1.5mm 3mm;border-left-width:1.2pt;background:none;font-size:9pt;break-inside:avoid}
+  .tip strong{display:inline;margin-right:1.5mm}
+}
+</style>
+</head>
+<body>
+
+<section>
+  <div class="wrap">
+    <div class="top">
+      <h1>Checklista för<br>flyttstädning</h1>
+      <a class="btn" href="checklista-flyttstadning.pdf" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 13.5h11"/></svg>
+        Ladda ner PDF
+      </a>
+    </div>
+    <div class="card">
+      <h3>Alla rum</h3>
+      <ul class="list">
+        <li data-id="0">Dammsug och våttorka alla golv</li>
+        <li data-id="1">Torka av golvlister, dörrar, dörrkarmar och trösklar</li>
+        <li data-id="2">Dammtorka tak, ventiler, rör och säkringsskåp</li>
+        <li data-id="3">Dammtorka alla horisontella ytor</li>
+        <li data-id="4">Torka ur garderober och fasta skåp, in- och utvändigt</li>
+        <li data-id="5">Rengör element, fram och bak där det går att komma åt</li>
+        <li data-id="6">Torka av strömbrytare, eluttag och fasta lampor</li>
+        <li data-id="7">Dammtorka persienner</li>
+        <li data-id="8">Putsa fönster in- och utvändigt (där det går) och torka av fönsterkarmar</li>
+      </ul>
+
+      <h3>Kök</h3>
+      <ul class="list">
+        <li data-id="9">Torka ur köksskåp och lådor, in- och utvändigt</li>
+        <li data-id="10">Torka av bänkskivor, kakel/stänkskydd och fogar</li>
+        <li data-id="11">Rengör spis, ugn och plåtar – även bakom och under spisen</li>
+        <li data-id="12">Frosta av och rengör kyl och frys, in- och utvändigt</li>
+        <li data-id="13">Rengör köksfläkt och fettfilter</li>
+        <li data-id="n1">Rengör mikrovågsugnen, in- och utvändigt</li>
+        <li data-id="14">Rengör diskmaskinen, in- och utvändigt</li>
+        <li data-id="15">Rengör diskho, blandare och sil – avkalka vid behov</li>
+        <li data-id="16">Rengör sopkärl och återvinningskärl</li>
+      </ul>
+
+      <h3>Badrum/WC</h3>
+      <ul class="list">
+        <li data-id="17">Rengör väggar, kakel, klinker och fogar – avkalka vid behov</li>
+        <li data-id="18">Rengör toalett, handfat och blandare</li>
+        <li data-id="19">Rengör dusch eller badkar samt duschväggar/duschkabin</li>
+        <li data-id="20">Rensa och rengör golvbrunnen</li>
+        <li data-id="21">Torka ur badrumsskåp, in- och utvändigt</li>
+        <li data-id="22">Putsa speglar och glasytor</li>
+        <li data-id="n2">Torka av handdukstork och synliga rör</li>
+        <li data-id="23">Rengör tvättmaskin och torktumlare, in- och utvändigt, inklusive tvättmedelsfack och filter</li>
+      </ul>
+
+      <h3>Övriga utrymmen (tillval)</h3>
+      <ul class="list">
+        <li data-id="24">Balkong: sopa och torka av</li>
+        <li data-id="25">Inglasad balkong/altan: putsa glasen</li>
+        <li data-id="26">Förråd och garage: sopa och torka av ytor</li>
+        <li data-id="27">Vind: sopa och torka av</li>
+        <li data-id="28">Forsla bort saker som lämnats kvar</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Villa och radhus</h2>
+    <p class="sub">Det här tillkommer när du flyttar från ett hus</p>
+
+    <div class="card">
+      <h3>Tomt och utomhusytor</h3>
+      <ul class="list">
+        <li data-id="29">Ta bort lösa saker som trädgårdsredskap, utemöbler och leksaker som inte ska stå kvar</li>
+        <li data-id="30">Klipp gräsmattan och rensa bort löv, ogräs och trädgårdsavfall</li>
+        <li data-id="31">Sopa gångar, uppfart, altan och uteplatser</li>
+        <li data-id="32">Töm blomkrukor, växthus och planteringslådor som inte ingår i köpet</li>
+        <li data-id="33">Ta ner dekorationer och prydnader som inte ska lämnas kvar</li>
+        <li data-id="34">Töm soptunnorna och se till att kärlen är rena</li>
+        <li data-id="35">Kontrollera att postlåda, grindar och staket är hela och rena</li>
+        <li data-id="36">Ta bort byggmaterial, pallar, slangar och annat som inte hör till fastigheten</li>
+        <li data-id="37">Lämna trädgården i snyggt skick – det ger köparen ett bra första intryck vid tillträdet</li>
+      </ul>
+      <div class="tip"><strong>💡 Tips</strong>Enligt jordabalken ska säljaren ha tagit bort allt lösöre som inte ingår i köpet. Det gäller även saker ute på tomten.</div>
+    </div>
+
+    <div class="card">
+      <h3>Garage, carport och förråd</h3>
+      <ul class="list">
+        <li data-id="38">Töm alla utrymmen helt – inget får lämnas kvar</li>
+        <li data-id="39">Sopa golvet och torka av hyllor, arbetsbänkar och verktygstavlor</li>
+        <li data-id="40">Torka av dörrar, handtag och strömbrytare</li>
+        <li data-id="41">Rengör fönster, lysrör och lampor</li>
+        <li data-id="42">Lämna oljor, färg, kemikalier och annat farligt avfall på återvinningscentralen</li>
+        <li data-id="43">Sopa carporten och uppfarten</li>
+        <li data-id="44">Kontrollera att garageporten fungerar</li>
+      </ul>
+      <div class="tip"><strong>💡 Tips</strong>Lämna över alla fjärrkontroller till garageporten – gärna med nya batterier.</div>
+    </div>
+
+    <div class="card">
+      <h3>Kamin och eldstad</h3>
+      <ul class="list">
+        <li data-id="45">Töm askan och rengör eldstaden invändigt</li>
+        <li data-id="46">Putsa kaminens glaslucka</li>
+        <li data-id="47">Torka bort sot och damm från ytorna runt kaminen</li>
+      </ul>
+      <div class="tip"><strong>💡 Tips</strong>Sotigt kaminglas? Fukta en bit hushållspapper, doppa den i lite aska och gnid. Askan slipar bort sotet utan några kemikalier.</div>
+    </div>
+
+    <div class="card">
+      <h3>Utsida av huset</h3>
+      <ul class="list">
+        <li data-id="48">Torka av ytterdörrar, handtag och altandörrar</li>
+        <li data-id="49">Se över fasad, sockel och hängrännor – ta bort smuts, löv och fläckar</li>
+        <li data-id="50">Sopa trappor och entré</li>
+        <li data-id="51">Kontrollera att utebelysningen fungerar</li>
+      </ul>
+      <div class="tip"><strong>💡 Tips</strong>Ska robotgräsklipparen eller bevattningssystemet följa med? Stäng av strömmen och glöm inte laddstationen.</div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var KEY='flytt-checklista-v1', state={};
+  try{state=JSON.parse(localStorage.getItem(KEY))||{};}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+
+  // Gör om varje <li> till en klickbar punkt
+  document.querySelectorAll('ul.list > li').forEach(function(li,i){
+    var text=li.textContent;
+    li.textContent='';
+    li.className='item';
+    li.dataset.order=i;
+    li.setAttribute('role','checkbox');
+    li.tabIndex=0;
+    var c=document.createElement('span');c.className='check';c.setAttribute('aria-hidden','true');
+    var t=document.createElement('span');t.className='text';t.textContent=text;
+    li.append(c,t);
+  });
+
+  // Färdiga punkter överst i sin lista, resten i ursprunglig ordning
+  function layout(ul,ignoreState){
+    var items=[].slice.call(ul.querySelectorAll(':scope > .item')).sort(function(a,b){return a.dataset.order-b.dataset.order;});
+    var isDone=function(li){return !ignoreState&&!!state[li.dataset.id];};
+    var done=items.filter(isDone);
+    var todo=items.filter(function(li){return !isDone(li);});
+    var div=ul.querySelector(':scope > .divider');
+    if(!div){div=document.createElement('li');div.className='divider';div.setAttribute('aria-hidden','true');}
+    if(!done.length||!todo.length)div.remove();
+    done.concat(done.length&&todo.length?[div]:[],todo).forEach(function(el){ul.appendChild(el);});
+  }
+  function layoutAll(ignoreState){document.querySelectorAll('ul.list').forEach(function(ul){layout(ul,ignoreState);});}
+  function render(li){li.setAttribute('aria-checked',!!state[li.dataset.id]);}
+  function toggle(li){
+    if(state[li.dataset.id])delete state[li.dataset.id];else state[li.dataset.id]=true;
+    save();render(li);layout(li.parentElement);li.focus({preventScroll:true});
+  }
+
+  document.querySelectorAll('.item').forEach(function(li){
+    render(li);
+    li.addEventListener('click',function(){toggle(li);});
+    li.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();toggle(li);}});
+  });
+  layoutAll();
+
+  // Vid utskrift: alla punkter i ursprunglig ordning (tomma rutor att bocka med penna)
+  window.addEventListener('beforeprint',function(){layoutAll(true);});
+  window.addEventListener('afterprint',function(){layoutAll();});
+})();
+</script>
+</body>
+</html>
