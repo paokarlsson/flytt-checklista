@@ -3,9 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "pdf": "node verktyg/skapa-pdf.mjs"
-  },
-  "devDependencies": {
-    "playwright": "^1.65.1"
+    "pdf": "npm install --no-save playwright && node verktyg/skapa-pdf.mjs"
   }
 }
